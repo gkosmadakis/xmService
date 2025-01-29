@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crypto-recommendation
+  labels:
+    app: crypto-recommendation
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: crypto-recommendation
+  template:
+    metadata:
+      labels:
+        app: crypto-recommendation
+    spec:
+      containers:
+        - name: crypto-recommendation
+          image: crypto-recommendation-service:latest
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          env:
+            - name: JAVA_OPTS
+              value: "-Xmx256m"
